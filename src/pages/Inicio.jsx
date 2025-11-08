@@ -2,8 +2,8 @@
 
 const Inicio = () => {
   return (
-    <div className="mt-6">
-        <h4 className="text-center py-4">Inicio</h4>
+    <div>
+        <h4 className="text-center py-3 fs-3">Inicio</h4>
     </div>
   )
 }

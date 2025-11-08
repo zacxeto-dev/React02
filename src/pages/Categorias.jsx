@@ -1,17 +1,20 @@
+import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
-import { formatCurrency } from "../util/funciones";
 import CardProduct from "../components/CardProduct";
 
-const API="https://dummyjson.com/products/category/laptops"
 
-const Laptop = () => {
+const API="https://dummyjson.com/products/category/"
+
+
+const Categorias = () => {
+    const parametros = useParams ()
     const [datos, setDatos] = useState([]); //datos: Almacena los productos recibidos de la API.
-        const [loading, setLoading] = useState(true); //loading: Indica si la carga está en progreso (para mostrar un spinner).
-        const [error, setError] = useState(null); //error: Guarda el mensaje de error si la petición falla.
-        
-        const getDatos = async () => {
+    const [loading, setLoading] = useState(true); //loading: Indica si la carga está en progreso (para mostrar un spinner).
+    const [error, setError] = useState(null); //error: Guarda el mensaje de error si la petición falla.
+    const URI = API + parametros.cat
+    const getDatos = async () => {
             try {
-                const response = await fetch(API);
+                const response = await fetch(URI);
                 if (!response.ok) {
                     throw new Error("HTTP error! status: " + response.status);
                 }
@@ -28,7 +31,7 @@ const Laptop = () => {
     
         useEffect(() => {
             getDatos();
-        }, []);
+        }, [parametros.cat]);
         if (loading) {
             return (
                 <div className="text-center py-5">
@@ -42,7 +45,7 @@ const Laptop = () => {
         if (error) {
             return (
                 <div className="text-center py-5 text-danger">
-                    <h4>Error al cargar los Productos</h4>
+                    <h4>Error al Cargar los Productos</h4>
                     <p>{error}</p>
                 </div>
             );
@@ -50,18 +53,16 @@ const Laptop = () => {
 
 
   return (
-        <div className="container">
-        <h4 className="text-center py-4">Laptop</h4>
-        <div className="row">
-        {datos.map((item)=>(
-            <CardProduct key={item.id} item={item}/>
-                ))}
-        
-         </div>
-    </div>
+    <div className="container">
+            <h4 className="text-center py-4">{parametros.cat}</h4>
+            <div className="row">
+            {datos.map((item)=>(
+                <CardProduct key={item.id} item={item}/>
+                    ))}
+            
+            </div>
+        </div>
   )
 }
-  
 
-
-export default Laptop
+export default Categorias

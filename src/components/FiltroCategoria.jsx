@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
-import { formatCurrency } from "../util/funciones";
-import CardProduct from "../components/CardProduct";
+import { Link } from "react-router-dom";
+const API="https://dummyjson.com/products/categories"
 
-const API="https://dummyjson.com/products/category/laptops"
-
-const Laptop = () => {
+const FiltroCategoria = () => {
     const [datos, setDatos] = useState([]); //datos: Almacena los productos recibidos de la API.
-        const [loading, setLoading] = useState(true); //loading: Indica si la carga está en progreso (para mostrar un spinner).
-        const [error, setError] = useState(null); //error: Guarda el mensaje de error si la petición falla.
-        
-        const getDatos = async () => {
+    const [loading, setLoading] = useState(true); //loading: Indica si la carga está en progreso (para mostrar un spinner).
+    const [error, setError] = useState(null); //error: Guarda el mensaje de error si la petición falla.
+
+    const getDatos = async () => {
             try {
                 const response = await fetch(API);
                 if (!response.ok) {
                     throw new Error("HTTP error! status: " + response.status);
                 }
                 const data = await response.json();
-                setDatos(data.products);
+                setDatos(data);
                 // console.log("Mostrar Datos del API")
                 // console.log(data)
                 setLoading(false);
@@ -33,7 +31,7 @@ const Laptop = () => {
             return (
                 <div className="text-center py-5">
                     <div className="spinner-border text-primary" role="status">
-                        <span className="visually-hidden">Loading...</span>
+                        <span className="visually-hidden">Cargando...</span>
                     </div>
                     <p>Cargando Productos...</p>
                 </div>
@@ -42,7 +40,7 @@ const Laptop = () => {
         if (error) {
             return (
                 <div className="text-center py-5 text-danger">
-                    <h4>Error al cargar los Productos</h4>
+                    <h4>Error al Cargar los Productos</h4>
                     <p>{error}</p>
                 </div>
             );
@@ -50,18 +48,16 @@ const Laptop = () => {
 
 
   return (
-        <div className="container">
-        <h4 className="text-center py-4">Laptop</h4>
-        <div className="row">
-        {datos.map((item)=>(
-            <CardProduct key={item.id} item={item}/>
-                ))}
+    <>
+        {datos.map((item) => (
+            <li><Link to={`/categorias/${item.slug}`} className="dropdown-item" href="#">{item.name}</Link></li>
         
-         </div>
-    </div>
+        
+        ))}
+    
+    
+    </>
   )
 }
-  
 
-
-export default Laptop
+export default FiltroCategoria

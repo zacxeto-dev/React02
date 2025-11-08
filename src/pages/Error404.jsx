@@ -2,7 +2,7 @@
 
 const Error404 = () => {
   return (
-    <div>ERROR404</div>
+    <div className="text-center py-5 fs-1">ERROR404</div>
   )
 }
 

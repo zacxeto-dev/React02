@@ -7,6 +7,8 @@ import Movil from "./pages/Movil"
 import Nosotros from "./pages/Nosotros"
 import Error404 from "./pages/Error404"
 import Motos from "./pages/Motos"
+import Detalle from "./pages/Detalle"
+import Categorias from "./pages/Categorias"
 
 
 const App = () => {
@@ -20,10 +22,12 @@ const App = () => {
           <Route path="/laptop" element={<Laptop/>} />
           <Route path="/movil" element={<Movil/>} />
           <Route path="/nosotros" element={<Nosotros/>} />
+          <Route path="/categorias/:cat" element={<Categorias/>} />
           <Route path="/motos" element={<Motos/>} />
-          
-
           <Route path="*" element={<Error404/>} />
+          <Route path="/detalle/:id/:titulo" element={<Detalle/>} />
+
+          
 
         </Routes>
         <Footer/>
