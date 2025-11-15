@@ -6,7 +6,7 @@ import CardProduct from "../components/CardProduct";
 const API="https://dummyjson.com/products/category/"
 
 
-const Categorias = () => {
+const Categorias = ({carrito, agregarAlCarrito}) => {
     const parametros = useParams ()
     const [datos, setDatos] = useState([]); //datos: Almacena los productos recibidos de la API.
     const [loading, setLoading] = useState(true); //loading: Indica si la carga está en progreso (para mostrar un spinner).
@@ -57,7 +57,7 @@ const Categorias = () => {
             <h4 className="text-center py-4">{parametros.cat}</h4>
             <div className="row">
             {datos.map((item)=>(
-                <CardProduct key={item.id} item={item}/>
+                <CardProduct key={item.id} item={item} carrito={carrito} agregarAlCarrito={agregarAlCarrito}/>
                     ))}
             
             </div>

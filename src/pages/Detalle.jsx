@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { formatCurrency } from "../util/funciones";
 
@@ -9,6 +9,7 @@ const Detalle = () => {
   const [datos, setDatos] = useState([]); //datos: Almacena los productos recibidos de la API.
   const [loading, setLoading] = useState(true); //loading: Indica si la carga está en progreso (para mostrar un spinner).
   const [error, setError] = useState(null); //error: Guarda el mensaje de error si la petición falla.
+  const navigate = useNavigate();
   const URI = API + parametros.id;
 
   const getDatos = async () => {
@@ -51,7 +52,14 @@ const Detalle = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container my-4">
+        {/* Botón Volver */}
+            <div className="d-flex justify-content-end mb-3">
+                <button onClick={() => navigate(-1)} className="btn btn-secondary">
+                    ← Volver
+                </button>
+            </div>
+            
       <h4 className="text-center py-4">
         Detalle del Producto {parametros.titulo}
       </h4>
@@ -81,9 +89,12 @@ const Detalle = () => {
         <div className="row">
             {datos.reviews.map((item) => (
                 <div className="col-md-6 mb-2">
-                   <div className="card">
-                <p>{item.comment}</p>
-                <p>{item.rating}</p>
+                   <div className="card ">
+                <p>Comentario: {item.comment}</p>
+                <p>Puntuacion: {item.rating}</p>
+                <p>Fecha: {item.date}</p>
+                <p>Nombre del usuario: {item.reviewerName}</p>
+                <p>Correo del usuario: {item.reviewerEmail}</p>
                 
             </div> 
                 </div>
